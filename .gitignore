@@ -1,0 +1,12 @@
+# Created by .ignore support plugin (hsz.mobi)
+*/target
+.DS_Store
+*/.DS_Store
+
+
+.idea/
+
+el-olympus-protocol/.idea/
+
+el-olympus-protocol/target/
+olympus-framework.iml
