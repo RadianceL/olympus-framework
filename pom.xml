@@ -17,6 +17,7 @@
     <modules>
         <module>olympus-protocol</module>
         <module>olympus-register-center</module>
+        <module>hera-olympus-client</module>
     </modules>
 
     <dependencyManagement>
