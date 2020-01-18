@@ -1,8 +1,8 @@
-package core;
+package com.el.hera.core;
 
 import com.el.protocol.entity.RemoteInterfaceDefinition;
 import org.springframework.stereotype.Component;
-import utils.ReflexUtils;
+import com.el.hera.utils.ReflexUtils;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

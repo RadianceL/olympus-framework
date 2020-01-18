@@ -2,6 +2,7 @@ package com.el.register.cache;
 
 import com.el.protocol.entity.ServiceDefinition;
 import com.google.common.collect.Lists;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,6 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author eddie
  */
+@Component
 public final class LocalServerCache {
 
     private static final Map<String, Date> SERVICE_REGISTER_TIME = new ConcurrentHashMap<>(64);

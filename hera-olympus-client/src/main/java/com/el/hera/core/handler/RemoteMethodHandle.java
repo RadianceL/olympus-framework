@@ -1,11 +1,11 @@
-package core.handler;
+package com.el.hera.core.handler;
 
 import com.el.protocol.core.handler.MethodHandler;
 import com.el.protocol.entity.InterfaceTransformDefinition;
 import com.el.protocol.entity.RemoteInterfaceDefinition;
 import com.el.protocol.entity.RemoteMethodDefinition;
 import com.el.protocol.entity.enums.RequestPurpose;
-import core.RemoteMethodContext;
+import com.el.hera.core.RemoteMethodContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,0 +1,5 @@
+spring:
+  hera:
+    ip: 127.0.0.1
+    enable: true
+    port: 9901

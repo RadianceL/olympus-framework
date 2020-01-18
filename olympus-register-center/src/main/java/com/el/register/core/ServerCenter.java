@@ -15,6 +15,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +27,7 @@ import javax.annotation.PostConstruct;
  *
  * @author eddielee
  */
+@Slf4j
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ServerCenter {
@@ -52,6 +54,7 @@ public class ServerCenter {
 
 
     private void init(){
+        log.info("启动 - 初始化处理器");
         requestMethodHandler.addHandler(RequestPurpose.REGISTER, serviceRegisterMethodHandler);
         requestMethodHandler.addHandler(RequestPurpose.REFRESH, serviceRefreshMethodHandler);
     }
@@ -59,6 +62,7 @@ public class ServerCenter {
     @PostConstruct
     private void start() {
         init();
+        log.info("启动 - 初始化服务");
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         ServerBootstrap serverBootstrap = new ServerBootstrap()
@@ -72,6 +76,7 @@ public class ServerCenter {
                 .childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT);
         ChannelFuture future;
         try {
+            log.info("启动 - 初始化服务完成 端口号为：{}", olympusProperties.getServer().getPort());
             future = serverBootstrap.bind(olympusProperties.getServer().getPort()).sync();
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {

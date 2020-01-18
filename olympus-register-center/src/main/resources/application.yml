@@ -1,0 +1,7 @@
+spring:
+  register:
+    instance:
+      leaseExpirationDurationInSeconds: 10
+      leaseRenewalIntervalInSeconds: 5
+    server:
+      port: 9901

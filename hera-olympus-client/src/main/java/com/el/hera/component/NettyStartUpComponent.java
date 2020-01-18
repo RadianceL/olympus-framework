@@ -1,4 +1,4 @@
-package component;
+package com.el.hera.component;
 
 import com.el.protocol.core.RequestMethodHandler;
 import com.el.protocol.core.handler.MethodHandler;

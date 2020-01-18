@@ -1,4 +1,4 @@
-package core.proxy;
+package com.el.hera.core.proxy;
 
 import java.lang.reflect.Proxy;
 

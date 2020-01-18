@@ -1,7 +1,7 @@
 {
   "groups": [
     {
-      "name": "spring.el-util",
+      "name": "spring.hera",
       "type": "com.el.hera.component.ApplicationCoreConfiguration",
       "sourceType": "com.el.hera.component.ApplicationCoreConfiguration"
     }

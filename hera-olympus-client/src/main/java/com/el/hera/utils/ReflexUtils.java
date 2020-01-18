@@ -1,4 +1,4 @@
-package utils;
+package com.el.hera.utils;
 
 import com.el.protocol.entity.RemoteInterfaceDefinition;
 import com.el.protocol.entity.RemoteMethodDefinition;

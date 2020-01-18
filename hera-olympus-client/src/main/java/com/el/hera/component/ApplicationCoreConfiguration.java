@@ -1,4 +1,4 @@
-package component;
+package com.el.hera.component;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
