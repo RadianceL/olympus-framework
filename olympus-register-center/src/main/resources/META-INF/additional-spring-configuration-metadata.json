@@ -1,0 +1,43 @@
+{
+  "groups": [
+    {
+      "name": "spring.el-util",
+      "type": "com.el.register.config.OlympusProperties",
+      "sourceType": "com.el.register.config.OlympusProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.register.server.port",
+      "type": "java.lang.Integer",
+      "description": "服务注册端口.",
+      "sourceType": "com.el.register.config.OlympusProperties$Server",
+      "defaultValue": 9901
+    },
+    {
+      "name": "spring.register.instance.leaseRenewalIntervalInSeconds",
+      "type": "java.lang.String",
+      "description": "每多少秒续租一次.",
+      "sourceType": "com.el.register.config.OlympusProperties$Instance",
+      "defaultValue": 5
+    },
+    {
+      "name": "spring.register.instance.leaseExpirationDurationInSeconds",
+      "type": "java.lang.String",
+      "description": "每多少秒失效.",
+      "sourceType": "com.el.register.config.OlympusProperties$Instance",
+      "defaultValue": 10
+    }
+  ],
+  "hints": [
+    {
+      "name": "spring.register.server.port",
+      "values": [
+        {
+          "value": "9901",
+          "description": "默认端口."
+        }
+      ]
+    }
+  ]
+}

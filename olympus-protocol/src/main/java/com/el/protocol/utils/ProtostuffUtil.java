@@ -68,21 +68,4 @@ public class ProtostuffUtil {
         return schema;
     }
 
-    public static void main(String[] args) {
-        byte[] data = ProtostuffUtil.serialize("test");
-        String s = new String(data, StandardCharsets.UTF_8);
-        String target = "23".concat(s);
-
-        byte[] serialize = ProtostuffUtil.serialize(target);
-        String s1 = new String(serialize, StandardCharsets.UTF_8);
-
-        System.out.println("序列化后：" + s1);
-        String deserialize = ProtostuffUtil.deserialize(serialize, String.class);
-        String substring = deserialize.substring(0, 2);
-
-        System.out.println(substring);
-        String substring1 = deserialize.substring(2);
-        String result = ProtostuffUtil.deserialize(substring1.getBytes(StandardCharsets.UTF_8), String.class);
-        System.out.println("反序列化后：" + result);
-    }
 }

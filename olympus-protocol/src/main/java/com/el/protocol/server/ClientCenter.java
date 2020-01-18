@@ -31,7 +31,7 @@ public class ClientCenter {
         Bootstrap clientBootstrap = new Bootstrap()
                 .group(group)
                 .channel(NioSocketChannel.class)
-                .handler(new ClientChannel());
+                .handler(new ClientChannel(5));
         try {
             ChannelFuture channelFuture = clientBootstrap.connect(new InetSocketAddress(ip, port)).sync();
             channel = channelFuture.channel();
