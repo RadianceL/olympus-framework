@@ -18,29 +18,18 @@ import java.util.Objects;
 @AllArgsConstructor
 public class BaseServiceAddr {
 
-    @NonNull
+    /**
+     * 服务名称
+     */
     private String serviceName;
 
-    @NonNull
+    /**
+     * 注册中心地址
+     */
     private String ipAddr;
 
-    @NonNull
+    /**
+     * 注册中心名称
+     */
     private int port;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        BaseServiceAddr that = (BaseServiceAddr) o;
-        return this.port == that.port && this.serviceName.equals(that.serviceName) && this.ipAddr.equals(that.ipAddr);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(serviceName, ipAddr, port);
-    }
 }
