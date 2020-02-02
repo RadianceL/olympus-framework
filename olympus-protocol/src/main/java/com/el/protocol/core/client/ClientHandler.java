@@ -1,7 +1,10 @@
 package com.el.protocol.core.client;
 
+import com.el.common.support.exception.ExtendRuntimeException;
 import com.el.protocol.core.RequestMethodHandler;
+import com.el.protocol.entity.InterfaceTransformDefinition;
 import com.el.protocol.entity.enums.ClientType;
+import com.el.protocol.entity.enums.RequestPurpose;
 import io.netty.buffer.ByteBufAllocator;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.ChannelHandler;
@@ -10,6 +13,8 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Objects;
 
 /**
  * Channel处理器
@@ -24,13 +29,22 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
     /**
      * 内存分配工具 （可复用）
      */
-    private static ByteBufAllocator byteBufAllocator = new PooledByteBufAllocator();
+    private static final ByteBufAllocator byteBufAllocator = new PooledByteBufAllocator();
 
-    private RequestMethodHandler requestMethodHandler = RequestMethodHandler.getInstance(ClientType.CLIENT);
+    private final RequestMethodHandler requestMethodHandler = RequestMethodHandler.getInstance(ClientType.CLIENT);
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        requestMethodHandler.process(ctx, msg);
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws ExtendRuntimeException {
+        if (Objects.nonNull(ctx) && ctx instanceof InterfaceTransformDefinition) {
+            requestMethodHandler.process(ctx, (InterfaceTransformDefinition) msg);
+        }
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws ExtendRuntimeException {
+        InterfaceTransformDefinition reqInterfaceTransformDefinition = new InterfaceTransformDefinition();
+        reqInterfaceTransformDefinition.setPurpose(RequestPurpose.OFFLINE);
+        requestMethodHandler.disconnected(ctx, reqInterfaceTransformDefinition);
     }
 
     @Override

@@ -24,7 +24,7 @@ import java.util.Map;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class RefreshMethodHandler implements MethodHandler {
 
-    private ServerCache serverCache = ServerCache.getInstance();
+    private ServerCache serverCache = null;
 
     @Override
     @SuppressWarnings("unchecked")

@@ -7,10 +7,13 @@ import com.el.protocol.core.handler.MethodHandler;
 import com.el.protocol.entity.InterfaceTransformDefinition;
 import com.el.protocol.entity.enums.ClientType;
 import com.el.protocol.entity.enums.RequestPurpose;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.local.LocalAddress;
 import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
 
+import java.net.SocketAddress;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,8 +26,6 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Slf4j
 public class RequestMethodHandler {
-
-    private static RequestMethodHandler registerInstance = new RequestMethodHandler(ClientType.REGISTER);
 
     private RequestMethodHandler (ClientType clientType){
         this.clientType = clientType;
@@ -45,37 +46,46 @@ public class RequestMethodHandler {
         private static final RequestMethodHandler CLIENT_INSTANCE = new RequestMethodHandler(ClientType.CLIENT);
     }
 
-    private ClientType clientType;
+    private final ClientType clientType;
 
-    private static Map<RequestPurpose, MethodHandler> methodHandlerMap = new ConcurrentHashMap<>(16);
+    private static final Map<RequestPurpose, MethodHandler> METHOD_HANDLER_MAP = new ConcurrentHashMap<>(16);
 
     public void addHandler(RequestPurpose requestPurpose, MethodHandler methodHandler){
-        methodHandlerMap.put(requestPurpose, methodHandler);
+        METHOD_HANDLER_MAP.put(requestPurpose, methodHandler);
     }
 
-    public void process(ChannelHandlerContext ctx, Object msg) {
+    public void process(ChannelHandlerContext ctx, InterfaceTransformDefinition msg) throws ExtendRuntimeException{
         try {
-            if (Objects.nonNull(msg) && msg instanceof InterfaceTransformDefinition) {
-                InterfaceTransformDefinition data = (InterfaceTransformDefinition) msg;
-                log.info(JSON.toJSONString(data));
-                RequestPurpose purpose = data.getPurpose();
-                MethodHandler methodHandler = methodHandlerMap.get(purpose);
-                if (Objects.isNull(methodHandler)) {
-                    throw new ExtendRuntimeException(ErrorMessage.of("P-000-000-0001"));
-                }
-                log.info("接收到消息 {}", data);
-                InterfaceTransformDefinition interfaceTransformDefinition = methodHandler.processMethod(data);
+            log.info(JSON.toJSONString(msg));
+            RequestPurpose purpose = msg.getPurpose();
+            MethodHandler methodHandler = METHOD_HANDLER_MAP.get(purpose);
+            if (Objects.isNull(methodHandler)) {
+                throw new ExtendRuntimeException(ErrorMessage.of("P-000-000-0001"));
+            }
+            log.info("接收到消息 {}", msg);
+            InterfaceTransformDefinition interfaceTransformDefinition = methodHandler.processMethod(msg);
 
-                if (!interfaceTransformDefinition.isSuccess()) {
-                    throw new ExtendRuntimeException(ErrorMessage.of("P-000-000-0001"));
-                }
+            if (!interfaceTransformDefinition.isSuccess()) {
+                throw new ExtendRuntimeException(ErrorMessage.of("P-000-000-0001"));
+            }
 
-                if (ClientType.REGISTER.equals(this.clientType)) {
-                    ctx.writeAndFlush(interfaceTransformDefinition);
-                }
+            if (ClientType.REGISTER.equals(this.clientType)) {
+                ctx.writeAndFlush(interfaceTransformDefinition);
             }
         } finally {
             ReferenceCountUtil.release(msg);
+        }
+    }
+
+    public void disconnected(ChannelHandlerContext ctx, InterfaceTransformDefinition interfaceTransformDefinition) throws ExtendRuntimeException{
+        Channel channel = ctx.channel();
+
+        MethodHandler methodHandler = METHOD_HANDLER_MAP.get(RequestPurpose.OFFLINE);
+        interfaceTransformDefinition.setClassInfo(channel);
+        InterfaceTransformDefinition respInterfaceTransformDefinition = methodHandler.processMethod(interfaceTransformDefinition);
+
+        if (!respInterfaceTransformDefinition.isSuccess()) {
+            throw new ExtendRuntimeException(ErrorMessage.of("P-000-000-0001"));
         }
     }
 }

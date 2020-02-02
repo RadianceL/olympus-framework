@@ -50,8 +50,7 @@ public class ServerCenter {
     /**
      * 注册控制器
      */
-    private RequestMethodHandler requestMethodHandler = RequestMethodHandler.getInstance(ClientType.REGISTER);
-
+    private final RequestMethodHandler requestMethodHandler = RequestMethodHandler.getInstance(ClientType.REGISTER);
 
     private void init(){
         log.info("启动 - 初始化处理器");
@@ -62,28 +61,13 @@ public class ServerCenter {
     @PostConstruct
     private void start() {
         init();
-        log.info("启动 - 初始化服务");
-        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
-        ServerBootstrap serverBootstrap = new ServerBootstrap()
-                .group(bossGroup, workerGroup)
-                .channel(NioServerSocketChannel.class)
-                .childHandler(new ClientChannel(olympusProperties.getInstance().getLeaseRenewalIntervalInSeconds()))
-                .option(ChannelOption.SO_REUSEADDR, Boolean.TRUE)
-                .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
-                .childOption(ChannelOption.SO_KEEPALIVE, true)
-                .childOption(ChannelOption.TCP_NODELAY, Boolean.TRUE)
-                .childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT);
-        ChannelFuture future;
-        try {
-            log.info("启动 - 初始化服务完成 端口号为：{}", olympusProperties.getServer().getPort());
-            future = serverBootstrap.bind(olympusProperties.getServer().getPort()).sync();
-            future.channel().closeFuture().sync();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            bossGroup.shutdownGracefully();
-            workerGroup.shutdownGracefully();
+        int leaseRenewalIntervalInSeconds = olympusProperties.getInstance().getLeaseRenewalIntervalInSeconds();
+        if (leaseRenewalIntervalInSeconds <= 0) {
+            log.error("续约时间小于等于0秒");
+            return;
         }
+        int port = olympusProperties.getServer().getPort();
+        ServerCoreThread serverCoreThread = new ServerCoreThread(port, leaseRenewalIntervalInSeconds);
+        serverCoreThread.start();
     }
 }

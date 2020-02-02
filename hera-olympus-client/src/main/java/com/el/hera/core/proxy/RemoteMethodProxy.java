@@ -22,20 +22,14 @@ import java.util.Objects;
  */
 public class RemoteMethodProxy implements InvocationHandler {
 
-    private ServerCache serverCache = ServerCache.getInstance();
+    private ServerCache serverCache = null;
 
     private ClientCenter clientCenter = new ClientCenter();
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         String serviceInterfaceName = proxy.getClass().getName();
-        Map<String, List<ServiceDefinition>> serviceMap = serverCache.getServiceMap();
-        List<ServiceDefinition> serviceDefinitions = serviceMap.get(serviceInterfaceName);
-        if (Objects.isNull(serviceDefinitions) || serviceDefinitions.size() == 0 ) {
-            throw new ExtendRuntimeException(ErrorMessage.of("P-000-000-001", serviceInterfaceName));
-        }
-        ServiceDefinition serviceDefinition = serviceDefinitions.get(0);
-
+        ServiceDefinition serviceDefinition = serverCache.getAdviceService(serviceInterfaceName);
         clientCenter.run(serviceDefinition.getRemoteNameServer(), serviceDefinition.getRemoteServerPort());
 
         InterfaceTransformDefinition interfaceTransformDefinition = new InterfaceTransformDefinition();
