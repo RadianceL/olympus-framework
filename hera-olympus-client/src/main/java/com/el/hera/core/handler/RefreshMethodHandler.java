@@ -1,6 +1,6 @@
 package com.el.hera.core.handler;
 
-import com.el.hera.cache.ServerCache;
+import com.el.hera.cache.ServerListCache;
 import com.alibaba.fastjson.JSON;
 import com.el.protocol.core.handler.MethodHandler;
 import com.el.protocol.entity.InterfaceTransformDefinition;
@@ -24,7 +24,7 @@ import java.util.Map;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class RefreshMethodHandler implements MethodHandler {
 
-    private ServerCache serverCache = null;
+    private ServerListCache serverCache = null;
 
     @Override
     @SuppressWarnings("unchecked")

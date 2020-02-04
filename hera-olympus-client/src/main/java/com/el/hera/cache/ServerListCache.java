@@ -18,7 +18,7 @@ import java.util.Objects;
  */
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public final class ServerCache {
+public final class ServerListCache {
 
     private Map<String, List<ServiceDefinition>> serviceMap;
 

@@ -1,8 +1,6 @@
 package com.el.hera.core.proxy;
 
-import com.el.hera.cache.ServerCache;
-import com.el.common.support.exception.ExtendRuntimeException;
-import com.el.common.support.exception.data.ErrorMessage;
+import com.el.hera.cache.ServerListCache;
 import com.el.protocol.entity.InterfaceTransformDefinition;
 import com.el.protocol.entity.ServiceDefinition;
 import com.el.protocol.entity.enums.RequestPurpose;
@@ -10,9 +8,6 @@ import com.el.protocol.server.ClientCenter;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * 本地接口动态扩展
@@ -22,7 +17,7 @@ import java.util.Objects;
  */
 public class RemoteMethodProxy implements InvocationHandler {
 
-    private ServerCache serverCache = null;
+    private ServerListCache serverCache = null;
 
     private ClientCenter clientCenter = new ClientCenter();
 
