@@ -25,7 +25,7 @@ public class ClientChannel extends ChannelInitializer<SocketChannel> {
 
     private static final ChannelHandler INSTANCE = new ClientHandler();
 
-    private int allIdleTime;
+    private final int allIdleTime;
 
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {

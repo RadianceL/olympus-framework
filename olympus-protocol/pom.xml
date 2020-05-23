@@ -26,7 +26,7 @@
         <dependency>
             <groupId>com.el</groupId>
             <artifactId>common-utils</artifactId>
-            <version>0.1.2-SNAPSHOT</version>
+            <version>1.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>

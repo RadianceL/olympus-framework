@@ -9,11 +9,9 @@ import com.el.protocol.entity.enums.ClientType;
 import com.el.protocol.entity.enums.RequestPurpose;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.local.LocalAddress;
 import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
 
-import java.net.SocketAddress;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -54,7 +52,7 @@ public class RequestMethodHandler {
         METHOD_HANDLER_MAP.put(requestPurpose, methodHandler);
     }
 
-    public void process(ChannelHandlerContext ctx, InterfaceTransformDefinition msg) throws ExtendRuntimeException{
+    public void process(ChannelHandlerContext ctx, InterfaceTransformDefinition msg) throws ExtendRuntimeException {
         try {
             log.info(JSON.toJSONString(msg));
             RequestPurpose purpose = msg.getPurpose();
