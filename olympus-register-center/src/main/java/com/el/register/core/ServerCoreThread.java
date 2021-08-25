@@ -52,6 +52,7 @@ public class ServerCoreThread extends Thread{
         try {
             log.info("启动 - 初始化服务 端口为：{}", port);
             future = serverBootstrap.bind(port).sync();
+            // 使主线程 wait 阻塞，后续逻辑执行
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();

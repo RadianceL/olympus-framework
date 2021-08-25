@@ -1,8 +1,9 @@
-package com.el.hera.config;
+package com.el.hera.component;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,9 +15,16 @@ import java.util.List;
  * @author eddie
  */
 @Data
+@Primary
 @Component
-@ConfigurationProperties(prefix = "spring.register")
+@ConfigurationProperties(prefix = "spring.hera")
 public class HeraProperties {
+
+    private String ip;
+
+    private int port;
+
+    private boolean enable;
 
     @NestedConfigurationProperty
     private Client server = new Client();

@@ -1,9 +1,9 @@
 package com.el.hera;
 
-import com.el.common.support.exception.ExtendRuntimeException;
-import com.el.common.support.exception.data.ErrorMessage;
+import com.el.base.utils.support.exception.ExtendRuntimeException;
+import com.el.base.utils.support.exception.data.ErrorMessage;
 import com.el.hera.cache.strategy.AdviceServer;
-import com.el.hera.config.HeraProperties;
+import com.el.hera.component.HeraProperties;
 import com.el.hera.entity.enums.LoadBalancingStrategy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

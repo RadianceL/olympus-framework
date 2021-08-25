@@ -2,8 +2,8 @@
   "groups": [
     {
       "name": "spring.hera",
-      "type": "com.el.hera.component.ApplicationCoreConfiguration",
-      "sourceType": "com.el.hera.component.ApplicationCoreConfiguration"
+      "type": "com.el.hera.component.HeraProperties",
+      "sourceType": "com.el.hera.component.HeraProperties"
     }
   ],
   "properties": [
@@ -11,21 +11,21 @@
       "name": "spring.hera.ip",
       "type": "java.lang.String",
       "description": "注册中心地址.",
-      "sourceType": "com.el.hera.component.ApplicationCoreConfiguration",
+      "sourceType": "com.el.hera.component.HeraProperties",
       "defaultValue": "127.0.0.1"
     },
     {
       "name": "spring.hera.port",
       "type": "java.lang.Integer",
       "description": "端口号.",
-      "sourceType": "com.el.hera.component.ApplicationCoreConfiguration",
+      "sourceType": "com.el.hera.component.HeraProperties",
       "defaultValue": 9901
     },
     {
       "name": "spring.hera.enable",
       "type": "java.lang.Boolean",
       "description": "是否开启.",
-      "sourceType": "com.el.hera.component.ApplicationCoreConfiguration",
+      "sourceType": "com.el.hera.component.HeraProperties",
       "defaultValue": true
     }
 

@@ -36,7 +36,7 @@ public class NettyStartUpComponent {
     /**
      * 项目配置类
      */
-    private final ApplicationCoreConfiguration applicationCoreConfiguration;
+    private final HeraProperties applicationCoreConfiguration;
 
     /**
      * 注册控制器
