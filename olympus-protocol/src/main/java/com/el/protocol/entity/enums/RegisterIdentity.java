@@ -11,7 +11,7 @@ public enum RegisterIdentity {
     /**
      * 服务提供者
      */
-    SERVER_PROIVIDER,
+    SERVER_PROVIDER,
     /**
      * 服务消费者
      */

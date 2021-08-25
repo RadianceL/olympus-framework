@@ -26,7 +26,7 @@ public class BaseServiceAddr {
     /**
      * 注册中心地址
      */
-    private String ipAddr;
+    private String ipAddress;
 
     /**
      * 注册中心名称

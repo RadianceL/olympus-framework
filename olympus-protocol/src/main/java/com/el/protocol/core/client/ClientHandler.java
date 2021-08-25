@@ -1,6 +1,6 @@
 package com.el.protocol.core.client;
 
-import com.el.common.support.exception.ExtendRuntimeException;
+import com.el.base.utils.support.exception.ExtendRuntimeException;
 import com.el.protocol.core.RequestMethodHandler;
 import com.el.protocol.entity.InterfaceTransformDefinition;
 import com.el.protocol.entity.enums.ClientType;

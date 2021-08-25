@@ -1,8 +1,8 @@
 package com.el.protocol.core;
 
 import com.alibaba.fastjson.JSON;
-import com.el.common.support.exception.ExtendRuntimeException;
-import com.el.common.support.exception.data.ErrorMessage;
+import com.el.base.utils.support.exception.ExtendRuntimeException;
+import com.el.base.utils.support.exception.data.ErrorMessage;
 import com.el.protocol.core.handler.MethodHandler;
 import com.el.protocol.entity.InterfaceTransformDefinition;
 import com.el.protocol.entity.enums.ClientType;
